@@ -63,14 +63,14 @@
 .form {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 59%;
   transform: translate(-50%, -50%);
   width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .form h1 {
@@ -86,7 +86,7 @@
   width: 80%;
 }
 
-.form-inputs p {
+.form-inputs span {
   font-size: 0.8rem;
   margin-top: 0.5rem;
   color: #f00e0e;
@@ -96,7 +96,7 @@
   display: inline-block;
   font-size: 0.8rem;
   margin-bottom: 6px;
-  color: #fff;
+  color: #fff !important;
 }
 
 .form-input {

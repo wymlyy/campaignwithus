@@ -1,46 +1,56 @@
 import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 
 function Cards() {
+  const [listOfPosts, setListOfPosts] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/posts").then((response) => {
+      setListOfPosts(response.data);
+
+
+    })
+  }, []);
+
   return (
     <div className='cards'>
       <h1>Check out these fantastic Campaigns!</h1>
       <div className='cards__container'>
-        <div className='cards__wrapper'>
+        <div className='cards__wrapper' >
+
           <ul className='cards__items'>
-            <CardItem
-              src='images/img-9.jpg'
-              text='Explore the hidden waterfall deep inside the Amazon Jungle'
-              label='Adventure'
-              path='/services'
-            />
-            <CardItem
-              src='images/img-2.jpg'
-              text='Travel through the Islands of Bali in a Private Cruise'
-              label='Luxury'
-              path='/services'
-            />
+            {listOfPosts.slice(0, 2).map((value, key) => {
+              return (
+
+                <CardItem key={key}
+                  src='images/img-9.jpg'
+                  title={value.title}
+                  text={value.postText}
+                  topic={value.username}
+                  path={`/post/${value.id}`}
+                />
+
+              )
+            })}
           </ul>
           <ul className='cards__items'>
-            <CardItem
-              src='images/img-3.jpg'
-              text='Set Sail in the Atlantic Ocean visiting Uncharted Waters'
-              label='Mystery'
-              path='/services'
-            />
-            <CardItem
-              src='images/img-4.jpg'
-              text='Experience Football on Top of the Himilayan Mountains'
-              label='Adventure'
-              path='/products'
-            />
-            <CardItem
-              src='images/img-8.jpg'
-              text='Ride through the Sahara Desert on a guided camel tour'
-              label='Adrenaline'
-              path='/sign-up'
-            />
+            {listOfPosts.slice(2, 5).map((value, key) => {
+              return (
+
+                <CardItem key={key}
+                  src='images/img-9.jpg'
+                  title={value.title}
+                  text={value.postText}
+                  topic={value.username}
+                  path={`/post/${value.id}`}
+                />
+
+              )
+            })}
           </ul>
         </div>
       </div>

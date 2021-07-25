@@ -6,10 +6,11 @@ const useForm = (callback, validate) => {
     username: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '' 
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Axios.defaults.withCredentials = true;
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -38,9 +39,9 @@ const useForm = (callback, validate) => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
         callback();
 
-        Axios.post('http://localhost:5000/register', {
-          signupName: values.username, email: values.email, password: values.password
-        });
+        // Axios.post('http://localhost:5000/register', {
+        //   signupName: values.username, email: values.email, password: values.password
+        // });
 
       }
     },

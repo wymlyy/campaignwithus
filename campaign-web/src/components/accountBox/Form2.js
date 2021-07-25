@@ -11,17 +11,18 @@ const Form2 = () => {
     }
     return (
         <>
-            <div className='form-container'>
 
-                <div className='form-content-left'>
-                    <img className='form-img' src='images/img-2.svg' alt='spaceship' />
-                </div>
-                {!isSubmitted ? (
+            {!isSubmitted && (
+                <div className='form-container'>
+
+                    <div className='form-content-left'>
+                        <img className='form-img' src='images/img-2.svg' alt='spaceship' />
+                    </div>
                     <FormLogin submitForm={submitForm} />
-                ) : (
-                    <Home />
-                )}
-            </div>
+                </div>
+            ) 
+            }
+
         </>
     );
 };

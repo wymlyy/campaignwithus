@@ -23,8 +23,9 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  height: 27vh;
   color: #fff;
-  font-size: 100px;
+  font-size: 60px;
 }
 
 .products {

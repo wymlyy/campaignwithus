@@ -3,6 +3,18 @@
     width: 100%;
 }
 
+.errors {
+    color:red;
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+
+.errors-content {
+    color:red;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
 .postTitle {
     width: 100%;
 }

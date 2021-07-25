@@ -6,33 +6,42 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./textEditor.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import validate from "../accountBox/validateInfoPost";
+import useForm3 from "../accountBox/useForm3";
 import Axios from 'axios';
 
 
-const TextEditor = () => {
-  const [userName, setUserName] = useState("");
-  const [topic, setTopic] = useState("");
-  const [title, setTitle] = useState("");
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState)
-  }
-  const content = stateToHTML(editorState.getCurrentContent());
+const TextEditor = (submitForm) => {
+  // const [userName, setUserName] = useState("");
+  // const [topic, setTopic] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [editorState, setEditorState] = useState(EditorState.createEmpty())
+
+  // const onEditorStateChange = (editorState) => {
+  //   setEditorState(editorState)
+  // }
+
   // const content = JSON.stringify(convertToRaw(content));
 
   const [location, setLocation] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
   const myCurrentDate = new Date();
   const datePosted = myCurrentDate.getFullYear() + '-' + (myCurrentDate.getMonth() + 1) + '-' + myCurrentDate.getDate() + ' ' + myCurrentDate.getHours() + ':' + myCurrentDate.getMinutes() + ':' + myCurrentDate.getSeconds();
 
-  const submitPost = () => {
-    Axios.post('http://localhost:5000/post', {
-      userName: userName, topic: topic, title: title, content: content, location: location, startDate: startDate, datePosted: datePosted
-    });
-    document.getElementById("postForm").reset();
+  const { handleChange, handleSubmit, onEditorStateChange, handleTime, startDate, editorState, postText, values, errors } = useForm3(
+    submitForm,
+    validate
+  );
+  // const content = stateToHTML(editorState.getCurrentContent());
 
-  }
+  // const submitPost = () => {
+  //   Axios.post('http://localhost:5000/post', {
+  //     authorName: values.authorname, topic: values.topic, title: values.title, content: content, location: location, startDate: startDate, datePosted: datePosted
+  //   });
+  //   document.getElementById("postForm").reset();
+
+  // }
 
   const uploadCallback = (file) => {
     return new Promise(
@@ -50,45 +59,63 @@ const TextEditor = () => {
 
   return (
     <div>
-      <form id='postForm'>
+      <form id='postForm' onSubmit={handleSubmit}>
         <h1 className='postPageTitle'>Create Your Own Campaign !</h1>
         <div className='selectInfo'>
           <div className='selectTopic'>
             <label>Select One Topic:</label>
-            <select className='topic' onChange={(e) => { setTopic(e.target.value) }}>
+
+            <select id='topicSelection' className='topic' name='topic' value={values.topic} onChange={handleChange}>
               <option value='none' hidden>Select a topic</option>
               <option value='sports'>Sports</option>
               <option value='Marketing'>Marketing</option>
               <option value='education'>Education</option>
               <option value='society'>Society</option>
+              <option value='other'>Other</option>
             </select>
+            {errors.topic && <p className='errors'>{errors.topic}</p>}
           </div>
           <div className='selectTime'>
             <label>Select Date and Time:</label>
+
             <DatePicker className='datepick'
               dateFormat="yyyy-MM-dd HH:mm"
               timeFormat="hh:mm"
               selected={startDate}
-              onChange={(date) => setStartDate(date)} showTimeSelect
+              name='startDate'
+              value={startDate}
+              onChange={handleTime}
+              showTimeSelect
             />
+            {errors.startDate && <p className='errors'>{errors.startDate}</p>}
           </div>
+
         </div>
         <div className="otherInfo">
           <div className="campaignLocation">
             <label>Location:</label>
-            <input className='locationInput' type="text" onChange={(e) => { setLocation(e.target.value) }} />
+
+            <input className='locationInput' type="text" name='location' value={values.location} onChange={handleChange} />
+            {errors.location && <p className='errors'>{errors.location}</p>}
           </div>
           <div className="authorName">
             <label>Author Name:</label>
-            <input type="text" className="author" onChange={(e) => { setUserName(e.target.value) }} />
+
+            <input type="text" className="author" name='username' value={values.username} onChange={handleChange} />
+            {errors.username && <p className='errors'>{errors.username}</p>}
           </div>
         </div>
 
         <div className="postTitle">
           <label>Title:</label>
-          <input type="text" className="titleInput" onChange={(e) => { setTitle(e.target.value) }} />
+
+          <input type="text" className="titleInput" name='title' value={values.title} onChange={handleChange} />
+          {errors.title && <p className='errors'>{errors.title}</p>}
         </div>
+
         <Editor
+          name='postText'
+          value={postText}
           editorState={editorState}
           toolbarClassName="toolbarClassName"
           wrapperClassName="wrapperClassName"
@@ -113,7 +140,8 @@ const TextEditor = () => {
             },
           }}
         />
-        <button className='postButton' type='submit' onClick={submitPost}>
+        {errors.postText && <p className='errors-content'>{errors.postText}</p>}
+        <button className='postButton' type='submit'>
           Post
         </button>
       </form>

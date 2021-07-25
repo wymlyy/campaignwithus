@@ -1,79 +1,96 @@
-import React from 'react';
-import validate from './validateInfo';
-import useForm from './useForm';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from 'react-router-dom';
+import * as Yup from "yup";
+import axios from "axios";
 import './Form.css';
 
-const FormSignup = ({ submitForm }) => {
-  const { handleChange, handleSubmit, values, errors } = useForm(
-    submitForm,
-    validate
-  );
+function FormSignup() {
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+    password2: ""
+  };
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().min(3).max(15).required(),
+    email: Yup.string().email('Invalid email format').required(),
+    password: Yup.string().min(4).max(20).required(),
+    password2: Yup.string()
+      .oneOf([Yup.ref('password'), null], `Passwords don't match`).required('password confirmation is required')
+  });
+
+  const onSubmit = (data) => {
+    axios.post("http://localhost:5000/auth", data).then(() => {
+      console.log(data);
+      window.location.href = '/success-form';
+    });
+  };
 
   return (
+
     <div className='form-content-right'>
-      <form onSubmit={handleSubmit} className='form' noValidate>
-        <h1>
-          Get started with us today! Create your account by filling out the
-          information below.
-        </h1>
-        <div className='form-inputs'>
-          <label className='form-label'>Username</label>
-          <input
-            className='form-input'
-            type='text'
-            name='username'
-            placeholder='Enter your username'
-            value={values.username}
-            onChange={handleChange}
-          />
-          {errors.username && <p>{errors.username}</p>}
-        </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Email</label>
-          <input
-            className='form-input'
-            type='email'
-            name='email'
-            placeholder='Enter your email'
-            value={values.email}
-            onChange={handleChange}
-          />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password'
-            placeholder='Enter your password'
-            value={values.password}
-            onChange={handleChange}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Confirm Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password2'
-            placeholder='Confirm your password'
-            value={values.password2}
-            onChange={handleChange}
-          />
-          {errors.password2 && <p>{errors.password2}</p>}
-        </div>
-        <button className='form-input-btn' type='submit'>
-          Sign up
-        </button>
-        <span className='form-input-login'>
-          Already have an account? Login <Link to='/login'>here</Link>
-        </span>
-      </form>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className='form'>
+          <h1>
+            Get started with us today! Create your account by filling out the
+            information below.         </h1>
+          <label className='form-label'>Username: </label>
+          <div className='form-inputs'>
+            <Field className='form-input'
+
+              id="inputCreatePost"
+              name="username"
+              placeholder=""
+            />
+            <ErrorMessage name="username" component="span" />
+          </div>
+          <label className='form-label'>Email: </label>
+          <div className='form-inputs'>
+            <Field className='form-input'
+
+              id="inputEmail"
+              name="email"
+              placeholder=""
+            />
+            <ErrorMessage name="email" component="span" />
+          </div>
+          <label className='form-label'>Password: </label>
+          <div className='form-inputs'>
+            <Field className='form-input'
+              autoComplete="off"
+              type="password"
+              id="inputPassword"
+              name="password"
+              placeholder=""
+            />
+            <ErrorMessage name="password" component="span" />
+          </div>
+          <label className='form-label'>Confirm Password: </label>
+          <div className='form-inputs'>
+            <Field className='form-input'
+              autoComplete="off"
+              type="password"
+              id="confirmPassword"
+              name="password2"
+              placeholder=""
+            />
+            <ErrorMessage name="password2" component="span" />
+          </div>
+          <button className='form-input-btn' type="submit"> Register</button>
+          <span className='form-input-login'>
+            Already have an account? Login <Link to='/login'>here</Link>
+          </span>
+        </Form>
+      </Formik>
     </div>
+
   );
-};
+}
 
 export default FormSignup;

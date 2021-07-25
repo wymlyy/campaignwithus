@@ -65,6 +65,11 @@
   transition: all 0.2s ease-out;
 }
 
+.active {
+  border-bottom: 4px solid #fff;
+  transition: all 0.2s ease-out;
+}
+
 .fa-bars {
   color: #fff;
 }
@@ -72,6 +77,7 @@
 .nav-links-mobile {
   display: none;
 }
+
 
 .menu-icon {
   display: none;
