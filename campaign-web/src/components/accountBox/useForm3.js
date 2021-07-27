@@ -10,8 +10,7 @@ const useForm3 = (callback, validate) => {
   const postTextTags = stateToHTML(editorState.getCurrentContent());
   const postText = postTextTags.replace(/<[^>]+>/g, '');
 
-  const myCurrentDate = new Date();
-  const datePosted = myCurrentDate.getFullYear() + '-' + (myCurrentDate.getMonth() + 1) + '-' + myCurrentDate.getDate() + ' ' + myCurrentDate.getHours() + ':' + myCurrentDate.getMinutes() + ':' + myCurrentDate.getSeconds();
+  
   const [values, setValues] = useState({
     topic: '',
     username: '',
@@ -39,13 +38,7 @@ const useForm3 = (callback, validate) => {
   const handleSubmit = e => {
     e.preventDefault();
     setErrors(validate(values));
-
     setIsSubmitting(true);
-    // console.log(postText);
-
-
-    
-
   };
 
   const onEditorStateChange = (editorState) => {
@@ -58,21 +51,19 @@ const useForm3 = (callback, validate) => {
     () => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
 
-        Axios.post('http://localhost:5000/posts', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText }).then((response) => {
-
+        Axios.post('http://localhost:5000/posts', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText },{
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }).then((response) => {
+          window.location.href = '/write';
         });
-        window.location.href = '/write';
 
-
-
-        // Axios.post('http://localhost:5000/register', {
-        //   signupName: values.username, email: values.email, password: values.password
-        // });
-
-
-
+        Axios.post('http://localhost:5000/posts/visitors', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText },{
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }).then((response) => {
+          window.location.href = '/write';
+        });
+        
       }
-
     },
     [errors]
   );

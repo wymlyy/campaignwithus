@@ -1,47 +1,20 @@
 import React, { useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState } from "draft-js";
-import { stateToHTML } from "draft-js-export-html";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./textEditor.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import validate from "../accountBox/validateInfoPost";
 import useForm3 from "../accountBox/useForm3";
-import Axios from 'axios';
 
 
 
 const TextEditor = (submitForm) => {
-  // const [userName, setUserName] = useState("");
-  // const [topic, setTopic] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [editorState, setEditorState] = useState(EditorState.createEmpty())
-
-  // const onEditorStateChange = (editorState) => {
-  //   setEditorState(editorState)
-  // }
-
-  // const content = JSON.stringify(convertToRaw(content));
-
-  const [location, setLocation] = useState("");
-  // const [startDate, setStartDate] = useState(new Date());
-  const myCurrentDate = new Date();
-  const datePosted = myCurrentDate.getFullYear() + '-' + (myCurrentDate.getMonth() + 1) + '-' + myCurrentDate.getDate() + ' ' + myCurrentDate.getHours() + ':' + myCurrentDate.getMinutes() + ':' + myCurrentDate.getSeconds();
-
   const { handleChange, handleSubmit, onEditorStateChange, handleTime, startDate, editorState, postText, values, errors } = useForm3(
     submitForm,
     validate
   );
-  // const content = stateToHTML(editorState.getCurrentContent());
 
-  // const submitPost = () => {
-  //   Axios.post('http://localhost:5000/post', {
-  //     authorName: values.authorname, topic: values.topic, title: values.title, content: content, location: location, startDate: startDate, datePosted: datePosted
-  //   });
-  //   document.getElementById("postForm").reset();
-
-  // }
 
   const uploadCallback = (file) => {
     return new Promise(

@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import '../../App.css';
+import './post.css';
 import { useParams } from 'react-router-dom';
-import { Button } from '../Button';
 import axios from "axios";
 import { AuthContext } from '../../Context/AuthContext';
+import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 export default function Post() {
     let { id } = useParams();
@@ -11,6 +13,8 @@ export default function Post() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const { authState } = useContext(AuthContext);
+    const dateStart = moment(postObject.startDate).format("DD-MM-YYYY HH:mm");
+
 
     useEffect(() => {
         axios.get(`http://localhost:5000/posts/byId/${id}`).then((response) => {
@@ -38,20 +42,21 @@ export default function Post() {
                     };
                     setComments([...comments, commentAdd]);
                     setNewComment("");
+                    window.location.href = `/post/${id}`;
                 }
 
             })
     };
 
-    const deleteComment = (id) => {
+    const deleteComment = (commentId) => {
 
-        axios.delete(`http://localhost:5000/comments/${id}`, {
+        axios.delete(`http://localhost:5000/comments/${commentId}`, {
             headers: { accessToken: localStorage.getItem("accessToken") },
         })
             .then(() => {
                 setComments(
                     comments.filter((val) => {
-                        return val.id != id;
+                        return val.id != commentId;
                     })
                 );
             });
@@ -65,58 +70,77 @@ export default function Post() {
             .then(() => {
                 window.location.href = '/';
             });
+
     };
 
     return (
         <>
-            <h1 className='campaigns'>{postObject.title}</h1>
-            <div className='lineOne'>
-                <div className='postTopic'>{postObject.topic}</div>
-                <div className='postLocation'>{postObject.location}</div>
-            </div>
-            <div className='lineTwo'>
-                <div className='camTime'>{postObject.startDate}</div>
-                <div className='nameAuthor'>{postObject.username}</div>
-            </div>
-            <div className='postText'>
-                <div className='textContent'>{postObject.postText}</div>
-                <div className="footer">
-                    {postObject.username}
-                    {authState.username === postObject.username && (
-                        <button
-                            onClick={() => {
-                                deletePost(postObject.id);
-                            }}
-                        >
-                            {" "}
-                            Delete Post
-                        </button>
-                    )}
-                </div>
-            </div>
-            <div className="comments">
-                <h1>Comments</h1>
-                <div className='addComment'>
-                    <input type='text' placeholder="Add your comment here..." autoComplete="off" value={newComment} onChange={(event) => { setNewComment(event.target.value) }} />
-                </div>
-                <button className='postButton' type='submit' onClick={addComment}>
-                    Comment
-                </button>
-                <div className='listOfComments'>
-                    {comments.map((comment, key) => {
-                        return (
-                            <div key={key} className='comment'>
-                                <label className='commentUser'>User:{comment.username}</label>
-                                {comment.commentText}
-                                {authState.username === comment.username && (<button onClick={() => {
-                                    deleteComment(comment.id);
-                                }}>Delete</button>)}
+            <div className='postPage'>
+                <div className='campaigns'>
+                    <div className='overlay'>
+                        <h1 className='posttitle'>{postObject.title}</h1>
+                        <div className='infoContainer'>
+                            <div className='lineOne'>
+                                <div className='postTopic'>Topic: {postObject.topic}
+                                </div>
+                                <div className='postLocation'>Location: {postObject.location}</div>
                             </div>
-                        );
-                    })}
+                            <div className='lineTwo'>
+                                <div className='postAuthor'>Author: {postObject.username}</div>
+                                <div className='postDate'>Start Time: {dateStart}</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div className='postComment'>
+                    <div className='postText'>
+                        <div className='textContent'>{postObject.postText}</div>
+                        <div className="footer">
+                            {authState.username === postObject.username && (
+                                <button
+                                    onClick={() => {
+                                        deletePost(postObject.id);
+                                    }}
+                                >
+                                    {" "}
+                                    Delete Post
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    <div className="comments">
+                        <h1 className='commentTitle'> Make your comment here</h1>
+                        <div className='addComment'>
+                            <textarea type='text' placeholder="Add your comment here..." autoComplete="off" value={newComment} onChange={(event) => { setNewComment(event.target.value) }} />
+                        </div>
+                        <div className='commentButton'>
+                            <button className='commentBtn' type='submit' onClick={addComment}>
+                                Comment
+                            </button>
+                        </div>
+
+                        <div className='listOfComments'>
+                            {comments.map((comment, key) => {
+                                return (
+                                    <div key={key} className='comment'>
+                                        <label className='commentUser'>User: {comment.username}<span className='dateposted'>{moment(comment.createdAt).format("DD-MM-YYYY HH:mm:ss")}</span></label>
+                                        <div className='textOfComment'>{comment.commentText}</div>
+                                        <div className='commentBtnContainer'>
+                                            <div className='tooltip'>{authState.username === comment.username && (<><DeleteIcon onClick={() => {
+                                                deleteComment(comment.id);
+                                            }} className='deleteIcon' /><span className='tooltipText'>Delete</span></>)}</div>
+                                        </div>
+
+
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </>
     );
 

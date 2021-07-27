@@ -20,12 +20,14 @@
 
 .campaigns {
   background-image: url('/images/img-2.jpg');
+  display: block;
+  padding-top: 20px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 27vh;
   color: #fff;
-  font-size: 60px;
+  font-size: 36px;
 }
 
 .products {

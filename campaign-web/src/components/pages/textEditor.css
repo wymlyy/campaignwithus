@@ -67,6 +67,7 @@ label {
 }
 
 .postButton {
+    float:right;
     width: 100%;
     height: 50px;
   margin-top: 10px;

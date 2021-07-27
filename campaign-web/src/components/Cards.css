@@ -3,8 +3,45 @@
   background: #fff;
 }
 
-h1 {
+.campaignCard {
+  background-color: #354347;
+  margin: 1rem 1rem;
+  width: 330px;
+  border-radius: 10px;
+}
+
+.homeCard {
+  background-color: #354347;
+  margin: 1rem 1rem;
+  border-radius: 10px;
+}
+
+.homeCard2 {
+  width: 100%;
+  background-color: #354347;
+  margin: 1rem 1rem;
+  border-radius: 10px;
+}
+
+.homeCard2 > .cards__item{
+  width: 100%;
+}
+
+.homeCard > .cards__item{
+  width: 100%;
+}
+
+
+.overlay {
+  background-color: rgba(0,0,0,0.6);
+  height: 27vh;
+  margin-top: -20px;
+  justify-content: center;
+}
+
+h1, .campaignTitle {
   text-align: center;
+  padding-top: 20px;
 }
 
 .cards__container {
@@ -33,13 +70,21 @@ h1 {
 
 }
 
+.homeCards_campaign{
+  display: grid;  
+  margin-bottom: 24px;
+  grid-template-columns: repeat(2, 1fr);
+ 
+
+}
 
 .cards__item {
   display: flex;
   flex: 1;
   width: 330px;
-  margin: 1.2rem 1rem;
-  border-radius: 10px;
+  margin: 0rem 0rem 0rem 0rem;
+  border-radius: 10px 10px 0 0;
+  background-color: #fff;
 }
 
 .cards__item__link {
@@ -49,7 +94,7 @@ h1 {
   box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
   -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
   filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   overflow: hidden;
   text-decoration: none;
 }
@@ -100,29 +145,107 @@ h1 {
 }
 
 .cards__item__info {
-  padding: 20px 30px 30px;
+  padding: 15px 23px 5px 23px;
+}
+
+.cards__item__title {
+  color: #252e48;
+  font-size: 18px;
 }
 
 .cards__item__text {
+  text-align: justify;
   color: #252e48;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
+  height: 8vh;
+}
+
+.cards_item_author, .cards_item_dateTime {
+    text-decoration: none;
+    color: #354347;
+}
+
+.cards_item_footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 23px 10px 23px;
+}
+
+
+.signContainer{
+  float: right;
+  margin: 0 1rem;
+  padding: 0.7rem 0rem;
+  border-radius: 0 0 10px 10px;
+  
+}
+
+.btnSign {
+  cursor: pointer;
+  margin-right: 10px;  
+  font-size: 20px;
+  color: #edde44;
+  background: none;
+  border: none;
+}
+
+.btnSigned {
+    cursor: pointer;
+    margin-right: 10px;  
+    font-size: 20px;
+    color: rgb(119, 119, 119, 0.8);
+    background: none;
+    border: none; 
+}
+
+.btnSigned-visitors {
+  margin-right: 10px;  
+  font-size: 20px;
+  color: rgb(119, 119, 119, 0.8);
+  background: none;
+  border: none; 
+}
+
+.signNo {
+    color: #fff !important;
 }
 
 @media only screen and (min-width: 1200px) {
   .content__blog__container {
     width: 84%;
   }
+
 }
 
 @media only screen and (min-width: 1024px) {
   .cards__items {
     display: flex;
   }
+
+  
 }
 
 @media only screen and (max-width: 1024px) {
   .cards__item {
     margin-bottom: 2rem;
+  }
+
+  .cards__items_campaign{
+    display: block;  
+  }
+  
+  .homeCards_campaign{
+    display: block;   
+  }
+
+  .signContainer{
+    float: none;
+    text-align: right; 
+    margin-top: -30px;  
+  }
+
+  .homeCard2 {
+    width: auto;
   }
 }

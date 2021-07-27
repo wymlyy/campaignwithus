@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './App.css';
 import Home from './components/pages/Home';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Campaigns from './components/pages/Campaigns';
 import Profile from './components/pages/Profile';
@@ -16,7 +16,7 @@ import axios from 'axios';
 
 
 function App() {
-  
+
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,
@@ -39,7 +39,7 @@ function App() {
         });
       }
     });
-    
+
 
   }, []);
 
@@ -58,8 +58,8 @@ function App() {
             {!authState.status && <Route path='/login' exact component={Login} />}
             <Route path='/my-profile' exact component={Profile} > {authState.status ? (<Profile />) : (<Login />)}</Route>
             <Route path='/write' exact component={Write} >{authState.status ? (<Write />) : (<Login />)}</Route>
-            <Route path='/success-form' exact component={sucessForm} >{authState.status ? (<sucessForm />) : (<Login />)}</Route>
-            
+            <Route path='/success-form' exact component={sucessForm} />
+
           </Switch>
         </Router>
       </AuthContext.Provider>

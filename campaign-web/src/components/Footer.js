@@ -8,7 +8,7 @@ function Footer() {
     <div className='footer-container'>
       <section className='footer-subscription'>
         <p className='footer-subscription-heading'>
-          Join the Adventure newsletter to receive our best vacation deals
+          Join the Campaign With Us newsletter
         </p>
         <p className='footer-subscription-text'>
           You can unsubscribe at any time.
@@ -63,12 +63,11 @@ function Footer() {
       <section className='social-media'>
         <div className='social-media-wrap'>
           <div className='footer-logo'>
-            <Link to='/' className='social-logo'>
-              TRVL
-              <i className='fab fa-typo3' />
+            <Link to='/' className='navbar-logo'>
+              Campaign <img className='img-logo' src="images/logo.png" alt="" width="70" height="50" /> with Us
             </Link>
           </div>
-          <small className='website-rights'>TRVL © 2020</small>
+          <small className='website-rights'>Campaign with Us © 2020</small>
           <div className='social-icons'>
             <Link
               className='social-icon-link facebook'

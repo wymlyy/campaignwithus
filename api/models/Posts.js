@@ -31,7 +31,12 @@ module.exports = (sequelize, DataTypes) => {
         Posts.hasMany(models.Comments, {
             onDelete: "cascade",
         });
+
+        Posts.hasMany(models.Signatures, {
+            onDelete: "cascade",
+        });
     };
 
+   
     return Posts;
 }

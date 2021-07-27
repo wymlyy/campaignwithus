@@ -63,7 +63,6 @@ function Navbar() {
           <div className='navbar-container'>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
               Campaign <img className='img-logo' src="images/logo.png" alt="" width="70" height="50" /> with Us
-
             </Link>
             <div className='menu-icon' onClick={handleClick} >
               <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

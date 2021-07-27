@@ -1,12 +1,6 @@
 const express = require("express");
 const db = require("./models");
 const cors = require("cors");
-const moment = require('moment');
-const bcrypt = require('bcrypt');
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const session = require("express-session")
-const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -17,7 +11,8 @@ const commentsRouter = require("./routes/Comments");
 app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
-
+const signatureRouter = require("./routes/Signatures");
+app.use("/signatures", signatureRouter);
 
 const PORT = 5000;
 

@@ -15,11 +15,17 @@ function CardItem(props) {
             />
           </figure>
           <div className='cards__item__info'>
-            <h5 className='cards__item__text'>{props.title}</h5>
+            <h5 className='cards__item__title'>{props.title}</h5>
           </div>
           <div className='cards__item__info'>
             <h5 className='cards__item__text'>{props.text}</h5>
           </div>
+          <div className='cards_item_footer'>
+            <div className='cards_item_author'>User: {props.username}</div>
+            <div className='cards_item_dateTime'>{props.dateTime}</div>
+            
+          </div>
+          
         </Link>
       </li>
     </>
