@@ -17,7 +17,7 @@ export default function validateInfo(values, postText) {
     errors.title = 'Title is required';
   }
 
-  if (postText == "") {
+  if (postText.replace(/<[^>]+>|&[^>]+;/g, '') === "") {
     errors.postText = 'Content is required';
   }
 

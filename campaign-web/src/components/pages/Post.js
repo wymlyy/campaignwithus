@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { AuthContext } from '../../Context/AuthContext';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import moment from 'moment';
 
 export default function Post() {
@@ -96,7 +97,7 @@ export default function Post() {
                 </div>
                 <div className='postComment'>
                     <div className='postText'>
-                        <div className='textContent'>{postObject.postText}</div>
+                        <div className='textContent'>{ReactHtmlParser(postObject.postText)}</div>
                         <div className="footer">
                             {authState.username === postObject.username && (
                                 <button

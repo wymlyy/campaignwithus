@@ -72,7 +72,7 @@ const TextEditor = (submitForm) => {
             {errors.location && <p className='errors'>{errors.location}</p>}
           </div>
           <div className="authorName">
-            <label>Author Name:</label>
+            <label>Author:</label>
 
             <input type="text" className="author" name='username' value={values.username} onChange={handleChange} />
             {errors.username && <p className='errors'>{errors.username}</p>}

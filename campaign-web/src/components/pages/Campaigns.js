@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactPaginate from "react-paginate";
 import '../../App.css';
 import '../Cards.css';
 import CardItem from '../CardItem';
@@ -9,6 +11,10 @@ import axios from "axios";
 export default function Campaigns() {
   const [listOfPosts, setListOfPosts] = useState([]);
   const [signedPosts, setSignedPosts] = useState([]);
+  const [pageNum, setPageNum] = useState(0);
+  const postsPerPage = 9;
+  const currentPage = postsPerPage * pageNum;
+
 
   useEffect(() => {
 
@@ -68,6 +74,11 @@ export default function Campaigns() {
     window.location.href = '/login';
   }
 
+  const pageCount = Math.ceil(listOfPosts.length / postsPerPage);
+  const onPageChange = ({ selected }) => {
+    setPageNum(selected);
+  }
+
   return (
     <>
       <div className='campaigns'>
@@ -81,14 +92,18 @@ export default function Campaigns() {
           <div className='cards__wrapper' >
 
             <ul className='cards__items_campaign'>
-              {listOfPosts.reverse().map((value, key) => {
+              {listOfPosts.slice(currentPage, currentPage + postsPerPage).reverse().map((value, key) => {
                 return (
 
                   <div className='campaignCard' key={key}>
                     <CardItem key={key}
                       src='images/img-9.jpg'
                       title={value.title}
-                      text={value.postText}
+                      text={value.postText.length > 80 ?
+                        ReactHtmlParser(value.postText.substring(0, 80)
+                          .replace(/<p>|<\/p>|<ul>|<\/ul>|<ol>|<\/ol>|<li>|<\/li>|<br>|<\/br>|<em>|<\/em>/g, '') + "...") :
+                        ReactHtmlParser(value.postText
+                          .replace(/<p>|<\/p>|<ul>|<\/ul>|<ol>|<\/ol>|<li>|<\/li>|<br>|<\/br>|<em>|<\/em>/g, ''))}
                       topic={value.topic}
                       username={value.username}
                       dateTime={moment(value.createdAt).format("DD-MM-YYYY HH:mm:ss")}
@@ -119,9 +134,23 @@ export default function Campaigns() {
                 )
               })}
             </ul>
+            <ReactPaginate
+              previousLabel={"<<"}
+              nextLabel={">>"}
+              pageCount={pageCount}
+              onPageChange={onPageChange}
+              containerClassName={"paginateContainer"}
+              pageLinkClassName={"paginateLink"}
+              previousLinkClassName={"paginatePrev"}
+              nextLinkClassName={"paginateNext"}
+              disabledClassName={"paginateDisabled"}
+              activeClassName={"paginateActive"}
+              theme="circle"
+            />
           </div>
         </div>
       </div>
+
     </>
   )
 }

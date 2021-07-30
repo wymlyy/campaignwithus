@@ -4,6 +4,7 @@ import CardItem from './CardItem';
 import axios from "axios";
 import moment from 'moment';
 import { useEffect, useState } from "react";
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 
 function Cards() {
@@ -74,13 +75,16 @@ function Cards() {
         <div className='cards__wrapper' >
 
           <ul className='homeCards_campaign'>
-            {listOfPosts.slice(listOfPosts.length - 2, listOfPosts.length).reverse().map((value, key) => {
+            {listOfPosts.slice(0, 2).map((value, key) => {
               return (
                 <div className='homeCard' key={key}>
                   <CardItem key={key}
                     src='images/img-9.jpg'
                     title={value.title}
-                    text={value.postText}
+                    text={value.postText.length > 180 ?
+                      ReactHtmlParser(value.postText.substring(0, 180)
+                        .replace(/<p>|<\/p>|<ul>|<\/ul>|<ol>|<\/ol>|<li>|<\/li>|<br>|<\/br>|<em>|<\/em>/g, '') + "...") :
+                      ReactHtmlParser(value.postText.replace(/<p>|<\/p>|<ul>|<\/ul>|<ol>|<\/ol>|<li>|<\/li>|<br>|<\/br>|<em>|<\/em>/g, ''))}
                     topic={value.topic}
                     username={value.username}
                     dateTime={moment(value.createdAt).format("DD-MM-YYYY HH:mm:ss")}
@@ -111,16 +115,16 @@ function Cards() {
             })}
           </ul>
           <ul className='cards__items'>
-            {listOfPosts.filter((item, index)=>
-              index>=listOfPosts.length-5 && index<=listOfPosts.length-3
-            ).reverse().map((value, key) => {
+            {listOfPosts.slice(2, 5).map((value, key) => {
               return (
 
                 <div className='homeCard2' key={key}>
                   <CardItem key={key}
                     src='images/img-9.jpg'
                     title={value.title}
-                    text={value.postText}
+                    text={value.postText.length > 110 ? ReactHtmlParser(value.postText.substring(0, 110)
+                      .replace(/<p>|<\/p>|<ul>|<\/ul>|<ol>|<\/ol>|<li>|<\/li>|<br>|<\/br>|<em>|<\/em>/g, '') + "...") :
+                      ReactHtmlParser(value.postText.replace(/<p>|<\/p>|<ul>|<\/ul>|<ol>|<\/ol>|<li>|<\/li>|<br>|<\/br>|<em>|<\/em>/g, ''))}
                     topic={value.topic}
                     username={value.username}
                     dateTime={moment(value.createdAt).format("DD-MM-YYYY HH:mm:ss")}

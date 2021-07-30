@@ -32,7 +32,20 @@
 .postText {
     padding-bottom: 30px;
     border-bottom: solid 1px #000;
+    
 }
+
+.textContent p {
+    padding-bottom: 1.3rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.textContent li {
+    padding-bottom: 0.6rem;
+    line-height: 1.7rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
 .postComment {
     padding: 1.5rem 260px;
     justify-content: center;

@@ -7,13 +7,13 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 router.get("/", validateToken, async (req, res) => {
   const listOfPosts = await Posts.findAll({ include: [Signatures] });
   const signedPosts = await Signatures.findAll({ where: { UserId: req.user.id } });
-  res.json({ listOfPosts: listOfPosts, signedPosts: signedPosts });
+  res.json({ listOfPosts: listOfPosts.reverse(), signedPosts: signedPosts });
 });
 
 router.get("/visitors", async (req, res) => {
   const listOfPosts = await Posts.findAll({ include: [Signatures] });
   const signedPosts = await Signatures.findAll();
-  res.json({ listOfPosts: listOfPosts, signedPosts: signedPosts });
+  res.json({ listOfPosts: listOfPosts.reverse(), signedPosts: signedPosts });
 });
 
 router.get('/byId/:id', async (req, res) => {
