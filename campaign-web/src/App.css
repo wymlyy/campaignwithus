@@ -30,13 +30,15 @@
   font-size: 36px;
 }
 
-.products {
+.Profile {
   background-image: url('/images/img-1.jpg');
   background-position: center;
-  background-size: fill;
+  background-size: cover;
   background-repeat: no-repeat;
+  height: 27vh;
   color: #fff;
-  font-size: 100px;
+  font-size: 36px;
+  margin-bottom: 50px;
 }
 
 .sign-up {
@@ -69,6 +71,52 @@
   border: solid 1px #5a5a5a;
   border-radius: 0 0 5px 5px !important;
   padding: 10px;
+}
+
+.footerWrite {
+  display: block;
+}
+
+
+.postList {
+  padding: 10px 20%;
+}
+
+.postHis {
+  padding-left:  20%;
+  margin-bottom: 15px;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  background-color: #354347;
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 8px 8px 0 0;
+}
+
+.listFooter {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #edde44;
+  padding: 6px 20px;
+  border-radius: 0 0 8px 8px;
+}
+
+.viewBtn, .deleteBtn {
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.viewBtn:hover {
+  color: #2963c5;
+}
+
+.deleteBtn:hover {
+  color: #c52933;
 }
 
 @media (prefers-reduced-motion: no-preference) {

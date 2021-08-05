@@ -114,11 +114,12 @@ const TextEditor = (submitForm) => {
           }}
         />
         {errors.postText && <p className='errors-content'>{errors.postText}</p>}
-        <button className='postButton' type='submit'>
-          Post
-        </button>
+        <div className='postBtnContainer'>
+          <button className='postButton' type='submit'>
+            Post
+          </button>
+        </div>
       </form>
-
     </div>
   );
 

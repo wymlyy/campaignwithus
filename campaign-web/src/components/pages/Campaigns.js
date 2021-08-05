@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import '../../App.css';
 import '../Cards.css';
 import CardItem from '../CardItem';
+import Footer from '../Footer';
 import moment from "moment";
 import axios from "axios";
 
@@ -92,7 +93,7 @@ export default function Campaigns() {
           <div className='cards__wrapper' >
 
             <ul className='cards__items_campaign'>
-              {listOfPosts.slice(currentPage, currentPage + postsPerPage).reverse().map((value, key) => {
+              {listOfPosts.reverse().slice(currentPage, currentPage + postsPerPage).map((value, key) => {
                 return (
 
                   <div className='campaignCard' key={key}>
@@ -150,7 +151,7 @@ export default function Campaigns() {
           </div>
         </div>
       </div>
-
+      <Footer />
     </>
   )
 }

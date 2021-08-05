@@ -39,7 +39,7 @@
 .nav-menu {
   display: grid;
   grid-template-columns: repeat(4, auto);
-  grid-gap: 8px;
+  grid-gap: 0px 8px;
   list-style: none;
   text-align: center;
   width: 40vw;
@@ -68,6 +68,7 @@
 .active {
   border-bottom: 4px solid #fff;
   transition: all 0.2s ease-out;
+  
 }
 
 .fa-bars {

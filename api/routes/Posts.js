@@ -22,6 +22,8 @@ router.get('/byId/:id', async (req, res) => {
   res.json(post);
 });
 
+
+
 router.post("/", validateToken, async (req, res) => {
   const post = req.body;
   post.username = req.user.username;
@@ -39,6 +41,28 @@ router.delete("/:postId", validateToken, async (req, res) => {
   });
 
   res.json("DELETED");
+});
+
+router.put("/:postId", validateToken, async (req, res) => {
+  const postId = req.params.postId;
+  const updatePost = await Posts.findByIdAndUpdate(
+    postId,
+    {
+      $set: req.body,
+    },
+    {new: true}
+  );
+
+  res.json(updatePost);
+});
+
+router.get("/byUserId/:id", async (req, res) => {
+  const id = req.params.id;
+  const listOfPosts = await Posts.findAll({
+    where: { UserId: id },
+    include: [Signatures],
+  });
+  res.json(listOfPosts);
 });
 
 module.exports = router;

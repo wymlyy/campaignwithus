@@ -1,3 +1,5 @@
+
+
 .overlay {
     background-color: rgba(0,0,0,0.6);
     height: 27vh;
@@ -46,8 +48,37 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
+.deletePost {
+    padding-bottom: 20px;
+}
+
+.deletePostBtn {
+    cursor: pointer;
+    padding: 5px;
+    color: #fff;
+    background-color: #edde44;
+    border: none;
+    border-radius: 6px;
+}
+
+.deletePostBtn {
+    cursor: pointer;
+    padding: 7px;
+    color: #000;
+    background-color: #edde44;
+    border: none;
+    border-radius: 6px;
+}
+
+.deletePostBtn:hover {
+    background-color: #354347;
+    color: #fff;
+}
+
 .postComment {
-    padding: 1.5rem 260px;
+    width: 77%;
+    margin: 0 auto;
+    padding: 1.5rem 26px;
     justify-content: center;
     align-items: center;
     align-self: center;

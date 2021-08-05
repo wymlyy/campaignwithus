@@ -4,6 +4,7 @@ import './post.css';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { AuthContext } from '../../Context/AuthContext';
+import Footer from '../Footer';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import moment from 'moment';
@@ -25,6 +26,7 @@ export default function Post() {
         axios.get(`http://localhost:5000/comments/${id}`).then((response) => {
             setComments(response.data);
         });
+
     }, []);
     const addComment = () => {
 
@@ -74,6 +76,10 @@ export default function Post() {
 
     };
 
+    const vistorClick = () => {
+        window.location.href = '/login';
+    };
+
     return (
         <>
             <div className='postPage'>
@@ -96,20 +102,20 @@ export default function Post() {
                     </div>
                 </div>
                 <div className='postComment'>
+                    <div className="deletePost">
+                        {authState.username === postObject.username && (
+                            <button className='deletePostBtn'
+                                onClick={() => {
+                                    deletePost(postObject.id);
+                                }}
+                            >
+                                Delete Post
+                            </button>
+                        )}
+                    </div>
                     <div className='postText'>
                         <div className='textContent'>{ReactHtmlParser(postObject.postText)}</div>
-                        <div className="footer">
-                            {authState.username === postObject.username && (
-                                <button
-                                    onClick={() => {
-                                        deletePost(postObject.id);
-                                    }}
-                                >
-                                    {" "}
-                                    Delete Post
-                                </button>
-                            )}
-                        </div>
+
                     </div>
                     <div className="comments">
                         <h1 className='commentTitle'> Make your comment here</h1>
@@ -117,9 +123,12 @@ export default function Post() {
                             <textarea type='text' placeholder="Add your comment here..." autoComplete="off" value={newComment} onChange={(event) => { setNewComment(event.target.value) }} />
                         </div>
                         <div className='commentButton'>
-                            <button className='commentBtn' type='submit' onClick={addComment}>
+                            {localStorage.getItem("accessToken") ? <button className='commentBtn' type='submit' onClick={addComment}>
                                 Comment
-                            </button>
+                            </button> : <button className='commentBtn' type='submit' onClick={vistorClick}>
+                                Comment
+                            </button>}
+
                         </div>
 
                         <div className='listOfComments'>
@@ -142,6 +151,7 @@ export default function Post() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 

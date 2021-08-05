@@ -3,6 +3,7 @@ import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import { AuthContext } from "../Context/AuthContext";
 import { NavLink } from 'react-router-dom';
+import Logo from '../assets/logo.png';
 import axios from 'axios';
 import './Navbar.css';
 
@@ -62,7 +63,7 @@ function Navbar() {
         <nav className='navbar'>
           <div className='navbar-container'>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-              Campaign <img className='img-logo' src="images/logo.png" alt="" width="70" height="50" /> with Us
+              <img className='img-logo' src={Logo} alt="" /> 
             </Link>
             <div className='menu-icon' onClick={handleClick} >
               <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
