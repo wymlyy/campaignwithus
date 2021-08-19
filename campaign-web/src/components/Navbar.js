@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import { AuthContext } from "../Context/AuthContext";
@@ -11,14 +11,16 @@ import './Navbar.css';
 function Navbar() {
   const [authState, setAuthState] = useState({
     username: "",
+    email: "",
+    avatar: "",
     id: 0,
     status: false,
   });
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  const [avatar, setAvatar] = useState("");
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -31,6 +33,7 @@ function Navbar() {
     showButton();
 
     axios.get("http://localhost:5000/auth/verification", {
+
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -40,12 +43,16 @@ function Navbar() {
       } else {
         setAuthState({
           username: response.data.username,
+          email: response.data.email,
+          avatar: response.data.avatar,
           id: response.data.id,
           status: true,
         });
+        axios.get(`http://localhost:5000/auth/basicinfo/${response.data.id}`).then((response) => {
+          setAvatar(response.data.avatar);
+        });
       }
     });
-
   }, []);
 
   const logout = (e) => {
@@ -63,7 +70,7 @@ function Navbar() {
         <nav className='navbar'>
           <div className='navbar-container'>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-              <img className='img-logo' src={Logo} alt="" /> 
+              <img className='img-logo' src={Logo} alt="" />
             </Link>
             <div className='menu-icon' onClick={handleClick} >
               <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -132,7 +139,7 @@ function Navbar() {
                   </Link>
                 </li>)}
             </ul>
-            {!authState.status ? (<div>{button && (<Button buttonStyle='btn--signup'>Login/Signup</Button>)}</div>) : (<div><span className='userNav'>{authState.username}</span>{button && (<Button onClick={logout} buttonStyle='btn--signup'>Logout</Button>)}</div>)}
+            {!authState.status ? (<div>{button && (<Button buttonStyle='btn--signup'>Login/Signup</Button>)}</div>) : (<div><span className='userNav'><img className='avatarPic' src={avatar ? avatar : 'images/user.png'} /></span>{button && (<Button onClick={logout} buttonStyle='btn--signup'>Logout</Button>)}</div>)}
           </div>
         </nav>
 

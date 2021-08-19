@@ -109,6 +109,7 @@ export default function Campaigns() {
                       username={value.username}
                       dateTime={moment(value.createdAt).format("DD-MM-YYYY HH:mm:ss")}
                       path={`/post/${value.id}`}
+                      prof={`/profile/${value.UserId}`}
                     />
                     <div className='signContainer'>
                       {localStorage.getItem("accessToken") ? (

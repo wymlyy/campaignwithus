@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, ContentState, convertFromRaw, convertFromHTML } from "draft-js";
-import htmlToDraft from 'html-to-draftjs';
 import DatePicker from "react-datepicker";
 import { AuthContext } from '../../Context/AuthContext';
 import { useParams } from 'react-router-dom';
@@ -57,7 +55,7 @@ const EditPost = (submitForm) => {
     const uploadFile = e.target.files[0];
     const base64 = await convertBase64(uploadFile);
     setCover(base64);
-    console.log(typeof (cover));
+    console.log( cover);
   }
 
   const convertBase64 = (file) => {

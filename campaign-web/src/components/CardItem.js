@@ -10,7 +10,7 @@ function CardItem(props) {
           <figure className='cards__item__pic-wrap' data-category={props.topic}>
             <img
               className='cards__item__img'
-              alt='Travel Image'
+              alt='Campaign Image'
               src={props.src}
             />
           </figure>
@@ -21,7 +21,7 @@ function CardItem(props) {
             <h5 className='cards__item__text'>{props.text}</h5>
           </div>
           <div className='cards_item_footer'>
-            <div className='cards_item_author'>User: {props.username}</div>
+            <Link className='cards_item_author' to={props.prof}>User: {props.username}</Link>
             <div className='cards_item_dateTime'>{props.dateTime}</div>
             
           </div>

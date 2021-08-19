@@ -40,7 +40,7 @@ const useForm3 = (callback, validate) => {
     const uploadFile = e.target.files[0];
     const base64 = await convertBase64(uploadFile);
     setCover(base64);
-    console.log(typeof(cover));
+    console.log(cover);
   }
 
   const convertBase64 = (file) => {

@@ -35,10 +35,11 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 27vh;
+  height: auto;
   color: #fff;
   font-size: 36px;
   margin-bottom: 50px;
+  padding-bottom: 50px;
   justify-content: center;
   text-align: center;
 }
@@ -84,9 +85,95 @@
   padding-bottom: 45px;
 }
 
+.popupAvatar {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 20px;
+  left: 0;
+}
+
+.avatarContainer {
+  position: relative;
+  width: 35%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  border-radius: 4px;
+  padding: 50px 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+
+.close-icon {
+  content: 'x';
+  cursor: pointer;
+  position: fixed;
+  right: calc(32.5%);
+  top: calc(100vh - 85vh);
+  background: #000;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}
+
 .userImg {
+  cursor: pointer;
+  object-fit: cover;
   width: 120px;
+  height: 120px;
   margin-top: 25px;
+  border-radius: 50%;
+}
+
+.userImg2 {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-top: 25px;
+  border-radius: 50%;
+}
+
+.avatarContainer input[type="file"]{
+  display: none;
+}
+
+.uploadPic {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.uploadIconText {
+    display: flex;
+    vertical-align: middle;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    color: #000 !important;
+    background-color: #edde44;
+    border: none;
+    padding: 0.5rem;
+    margin-right: 25px;
+    border-radius: 5px;  
+}
+
+.uploadIconText:hover {
+  background-color: #000;
+  color: #fff !important;
+}
+
+.uploadIcon {
+  align-self: center;
+  margin-right: 5px;
 }
 
 .postList {
@@ -129,6 +216,55 @@
 
 .deleteBtn:hover {
   color: #c52933;
+}
+
+.passContainer {
+  text-align: center;
+  justify-content: center;
+}
+
+.changePassword {
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #000;
+  background-color: #edde44;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;  
+}
+
+.changePassword:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+.passwordInput {
+  margin-top: 10vh;
+  justify-content: center;
+  text-align: center;
+}
+
+.passOld, .passNew {
+  margin-bottom: 15px;
+}
+
+.inputOld, .inputNew {
+  padding: 7px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.btnSave {
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: #354347;
+  color: #fff;
+}
+
+.btnSave:hover {
+  background-color: #000;
 }
 
 @media (prefers-reduced-motion: no-preference) {
