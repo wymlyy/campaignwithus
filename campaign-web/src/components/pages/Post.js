@@ -80,6 +80,27 @@ export default function Post() {
         window.location.href = '/login';
     };
 
+    const editPost = () => {
+        window.location.href = `/edit-post/${id}`;
+    };
+
+    // const editPost = (option) => {
+    //     if (option === "title") {
+    //         let newTitle = prompt("Enter New Title:");
+    //         axios.put(
+    //             "http://localhost:5000/posts/title",
+    //             {
+    //                 newTitle: newTitle,
+    //                 id: id,
+    //             },
+    //             {
+    //                 headers: { accessToken: localStorage.getItem("accessToken") },
+    //             }
+    //         )
+    
+    //         setPostObject({ ...postObject, title: newTitle });
+    //     }
+    // }
     return (
         <>
             <div className='postPage'>
@@ -102,6 +123,18 @@ export default function Post() {
                     </div>
                 </div>
                 <div className='postComment'>
+                    <div className='modifyPost'>
+                    <div className="deletePost">
+                        {authState.username === postObject.username && (
+                            <button className='deletePostBtn'
+                                onClick={() => {
+                                    editPost(postObject.id);
+                                }}
+                            >
+                                Edit Post
+                            </button>
+                        )}
+                    </div>
                     <div className="deletePost">
                         {authState.username === postObject.username && (
                             <button className='deletePostBtn'
@@ -113,6 +146,8 @@ export default function Post() {
                             </button>
                         )}
                     </div>
+                </div>
+                
                     <div className='postText'>
                         <div className='textContent'>{ReactHtmlParser(postObject.postText)}</div>
 

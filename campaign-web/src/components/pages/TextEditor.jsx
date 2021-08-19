@@ -10,7 +10,7 @@ import useForm3 from "../accountBox/useForm3";
 
 
 const TextEditor = (submitForm) => {
-  const { handleChange, handleSubmit, onEditorStateChange, handleTime, startDate, editorState, postText, values, errors } = useForm3(
+  const { handleChange, handleSubmit, onEditorStateChange, handleTime, handleFile, cover, startDate, editorState, postText, values, errors } = useForm3(
     submitForm,
     validate
   );
@@ -52,8 +52,9 @@ const TextEditor = (submitForm) => {
             <label>Select Date and Time:</label>
 
             <DatePicker className='datepick'
-              dateFormat="yyyy-MM-dd HH:mm"
-              timeFormat="hh:mm"
+              dateFormat="yyyy-MM-dd HH:mm:ss"
+              timeFormat="hh:mm:ss"
+              use24Hours={true}
               selected={startDate}
               name='startDate'
               value={startDate}
@@ -72,11 +73,12 @@ const TextEditor = (submitForm) => {
             {errors.location && <p className='errors'>{errors.location}</p>}
           </div>
           <div className="authorName">
-            <label>Author:</label>
-
-            <input type="text" className="author" name='username' value={values.username} onChange={handleChange} />
-            {errors.username && <p className='errors'>{errors.username}</p>}
+            <label>Cover:</label>
+            <div className='author'>
+              <input type="file" className="uploadFile" name='cover' accept="image/*" onChange={(e) => { handleFile(e) }} />
+              </div>
           </div>
+
         </div>
 
         <div className="postTitle">

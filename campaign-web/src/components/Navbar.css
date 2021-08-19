@@ -29,6 +29,11 @@
   font-size: 2.4rem;
   display: flex;
   align-items: center;
+  margin-right: 20px;
+}
+
+.img-logo {
+  width: 18rem;
 }
 
 .fa-typo3 {
@@ -42,7 +47,7 @@
   grid-gap: 0px 8px;
   list-style: none;
   text-align: center;
-  width: 40vw;
+  width: 30vw;
   justify-content: end;
   margin-right: 2rem;
 }
@@ -143,8 +148,8 @@
   }
 
   .img-logo {
-    height: 40px;
-    width:55px;
+    height: 20px;
+    width:auto;
   }
 
   .menu-icon {

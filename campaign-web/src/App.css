@@ -39,7 +39,10 @@
   color: #fff;
   font-size: 36px;
   margin-bottom: 50px;
+  justify-content: center;
+  text-align: center;
 }
+
 
 .sign-up {
   background-image: url('/images/img-8.jpg');
@@ -77,9 +80,18 @@
   display: block;
 }
 
+.listOfPosts {
+  padding-bottom: 45px;
+}
+
+.userImg {
+  width: 120px;
+  margin-top: 25px;
+}
 
 .postList {
   padding: 10px 20%;
+  
 }
 
 .postHis {

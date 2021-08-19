@@ -9,6 +9,7 @@ import Profile from './components/pages/Profile';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import Write from './components/pages/Write';
+import EditPost from './components/pages/EditPost';
 import Post from './components/pages/Post';
 import MyProfile from './components/pages/MyProfile.js';
 import sucessForm from './components/accountBox/FormSuccess';
@@ -60,7 +61,7 @@ function App() {
             <Route path='/profile/:id' exact component={Profile} ></Route>
             <Route path='/write' exact component={Write} >{authState.status ? (<Write />) : (<Login />)}</Route>
             <Route path='/success-form' exact component={sucessForm} />
-
+            <Route path='/edit-post/:id' exact component={EditPost} >{authState.status ? (<EditPost />) : (<Login />)}</Route>
           </Switch>
         </Router>
       </AuthContext.Provider>

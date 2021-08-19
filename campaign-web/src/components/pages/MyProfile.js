@@ -39,7 +39,11 @@ function MyProfile() {
 
   return (
     <>
-      <h1 className='Profile'> Username: {username} </h1>
+      <div className='Profile'>
+      <h1> Username: {username} </h1>
+        <img className='userImg' src='images/user.png' alt='user' />
+        {/* <input type="file" className="uploadPic" name='avatar' accept="image/*" onChange={(e) => { handleFile(e) }} /> */}
+        </div>
       <div className="listOfPosts">
         <h2 className='postHis'>Post History</h2>
         {listOfPosts.reverse().map((value, key) => {
@@ -66,6 +70,7 @@ function MyProfile() {
           );
         })}
       </div>
+      <Footer />
     </>
   )
 }

@@ -15,13 +15,15 @@ const useForm3 = (callback, validate) => {
 
   const [values, setValues] = useState({
     topic: '',
-    username: '',
     title: '',
     location: ''
 
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [cover, setCover] = useState("");
+
 
   Axios.defaults.withCredentials = true;
 
@@ -34,6 +36,27 @@ const useForm3 = (callback, validate) => {
 
   };
 
+  const handleFile = async (e) => {
+    const uploadFile = e.target.files[0];
+    const base64 = await convertBase64(uploadFile);
+    setCover(base64);
+    console.log(typeof(cover));
+  }
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+        fileReader.onerror = (error) => {
+          reject(error);
+        }
+      }
+    })
+  }
+
+
   const handleTime = (date) => {
     setStartDate(date);
   }
@@ -45,6 +68,14 @@ const useForm3 = (callback, validate) => {
 
   };
 
+  const saveEdit = e => {
+    e.preventDefault();
+    setErrors(validate(values, postText));
+    setIsSaving(true);
+
+  };
+
+
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
 
@@ -55,13 +86,13 @@ const useForm3 = (callback, validate) => {
     () => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
 
-        Axios.post('http://localhost:5000/posts', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText }, {
+        Axios.post('http://localhost:5000/posts', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText, cover: cover }, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         }).then((response) => {
           window.location.href = '/write';
         });
 
-        Axios.post('http://localhost:5000/posts/visitors', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText }, {
+        Axios.post('http://localhost:5000/posts/visitors', { topic: values.topic, startDate: startDate, location: values.location, username: values.username, title: values.title, postText: postText, cover: cover }, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         }).then((response) => {
           window.location.href = '/write';
@@ -72,7 +103,7 @@ const useForm3 = (callback, validate) => {
     [errors]
   );
 
-  return { handleChange, handleSubmit, onEditorStateChange, handleTime, startDate, editorState, values, errors };
+  return { handleChange, handleSubmit, saveEdit, onEditorStateChange, handleTime, handleFile, cover, startDate, editorState, values, errors };
 };
 
 export default useForm3;

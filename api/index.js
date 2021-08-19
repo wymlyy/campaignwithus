@@ -1,8 +1,10 @@
 const express = require("express");
 const db = require("./models");
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
 const app = express();
 // app.use(express.json());
+app.use(fileUpload());
 app.use(cors({ origin: true, credentials: true }));
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({
